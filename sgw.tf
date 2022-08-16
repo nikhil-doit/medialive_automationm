@@ -101,7 +101,7 @@ resource "aws_eip" "sgw_eip" {
 }
 
 output "public_ip" {
-  value = aws_eip.sgw_eip.[count.index]
+  value = aws_instance.gw_instance.public_ip
 }
 
 resource "aws_storagegateway_gateway" "file_sgw" {
