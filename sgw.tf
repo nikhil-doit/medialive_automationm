@@ -95,8 +95,7 @@ resource "aws_volume_attachment" "sgw_attach" {
 
 # count to create multiple eip if necessary and associated with respective instances
 resource "aws_eip" "sgw_eip" {
-  count = 1
-  instance = aws_instance.gw_instance[count.index].id
+  instance = aws_instance.gw_instance.id
   vpc      = true
 }
 /*
@@ -106,7 +105,7 @@ output "public_ip" {
 */
 resource "aws_storagegateway_gateway" "file_sgw" {
   #gateway_ip_address = "44.192.120.87"
-  gateway_ip_address = aws_eip.sgw_eip[count.index]
+  gateway_ip_address = aws_eip.sgw_eip.public_ip
   gateway_name       = "test_gw"
   gateway_timezone   = "GMT"
   gateway_type       = "FILE_S3"
