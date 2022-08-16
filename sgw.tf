@@ -73,14 +73,13 @@ resource "aws_instance" "gw_instance" {
   associate_public_ip_address = true
   subnet_id                   = "subnet-090c4e0411c0d81e1"
   vpc_security_group_ids = ["sg-0345ddfc7bf0a9b47"]
-  #vpc_security_group_ids      = "sg-0345ddfc7bf0a9b47"
   tags = {
     created_by = "terraform"
   }
 }
 
 resource "aws_ebs_volume" "sgw_ebs" {
-  availability_zone = "us-east-1"
+  availability_zone = "us-east-1a"
   size              = "200"
   type              = "gp3"
   encrypted         = false
