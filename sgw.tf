@@ -110,3 +110,14 @@ resource "aws_storagegateway_gateway" "file_sgw" {
   gateway_timezone   = "GMT"
   gateway_type       = "FILE_S3"
 }
+
+data "aws_storagegateway_local_disk" "sgw_ebs" {
+  disk_node   = "/dev/sdh"
+  #disk_node   = data.aws_volume_attachment.sgw_attach.de
+  gateway_arn = aws_storagegateway_gateway.file_sgw.arn
+}
+
+resource "aws_storagegateway_cache" "gw_cache" {
+  disk_id     = data.aws_storagegateway_local_disk.sgw_ebs.disk_id
+  gateway_arn = aws_storagegateway_gateway.file_sgw.arn
+}
