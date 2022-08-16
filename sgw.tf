@@ -100,7 +100,7 @@ resource "aws_eip" "sgw_eip" {
 
 resource "aws_storagegateway_gateway" "file_sgw" {
   #gateway_ip_address = "44.192.120.87"
-  gateway_ip_address = aws_eip.sgw_eip
+  gateway_ip_address = aws_eip.sgw_eip.address
   gateway_name       = "test_gw"
   gateway_timezone   = "GMT"
   gateway_type       = "FILE_S3"
