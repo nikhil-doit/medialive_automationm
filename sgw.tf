@@ -66,3 +66,12 @@ output "sg_ssh_id" {
   description = "SG_SSH ID"
   value = aws_security_group.sg_allow_ssh.id
 }
+
+resource "aws_instance" "gw_instance" {
+  ami                         = "ami-044238dc0ff5b8208"
+  instance_type               = "m5.xlarge"
+  associate_public_ip_address = true
+  subnet_id                   = "subnet-090c4e0411c0d81e1"
+  vpc_security_group_ids      = "sg-0345ddfc7bf0a9b47"
+  tags                        = "terraform"
+}
