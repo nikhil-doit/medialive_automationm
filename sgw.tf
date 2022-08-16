@@ -78,3 +78,20 @@ resource "aws_instance" "gw_instance" {
     created_by = "terraform"
   }
 }
+
+resource "aws_ebs_volume" "sgw_ebs" {
+  availability_zone = "us-east-1"
+  size              = "200"
+  type              = "gp3"
+  encrypted         = false
+  tags = {
+    created_by = "terraform"
+  }
+}
+
+resource "aws_volume_attachment" "sgw_attach" {
+  device_name  = "/dev/sdh"
+  volume_id    = aws_ebs_volume.sgw_ebs.id
+  instance_id  = aws_instance.gw_instance.id
+  force_detach = false
+}
