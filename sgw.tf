@@ -1,3 +1,4 @@
+/*
 resource "aws_security_group" "sg_allow_ssh" {
   name        = "sg_allow_ssh"
   description = "Allow SSH inbound traffic"
@@ -103,7 +104,7 @@ resource "aws_volume_attachment" "sgw_attach" {
   instance_id  = aws_instance.gw_instance.id
   force_detach = false
 }
-/*
+
 resource "aws_storagegateway_gateway" "file_sgw" {
   gateway_ip_address = "44.192.120.87"
   gateway_name       = "test_gw"
@@ -113,7 +114,6 @@ resource "aws_storagegateway_gateway" "file_sgw" {
 
 data "aws_storagegateway_local_disk" "sgw_ebs" {
   disk_node   = "/dev/sdh"
-  #disk_node   = data.aws_volume_attachment.sgw_attach.de
   gateway_arn = aws_storagegateway_gateway.file_sgw.arn
 }
 
@@ -121,5 +121,4 @@ resource "aws_storagegateway_cache" "gw_cache" {
   disk_id     = data.aws_storagegateway_local_disk.sgw_ebs.disk_id
   gateway_arn = aws_storagegateway_gateway.file_sgw.arn
 }
-
 */
