@@ -72,6 +72,8 @@ resource "aws_instance" "gw_instance" {
   instance_type               = "m5.xlarge"
   associate_public_ip_address = true
   subnet_id                   = "subnet-090c4e0411c0d81e1"
-  vpc_security_group_ids      = "sg-0345ddfc7bf0a9b47"
-  tags                        = "terraform"
+  vpc_security_group_ids = ["sg-0345ddfc7bf0a9b47"]
+  #vpc_security_group_ids      = "sg-0345ddfc7bf0a9b47"
+  tags = ["tarraform"]
+  #tags = {"terraform"}
 }
