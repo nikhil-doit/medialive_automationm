@@ -99,14 +99,14 @@ resource "aws_eip" "sgw_eip" {
   instance = aws_instance.gw_instance[count.index].id
   vpc      = true
 }
-
+/*
 output "public_ip" {
   value = aws_instance.gw_instance.public_ip
 }
-
+*/
 resource "aws_storagegateway_gateway" "file_sgw" {
   #gateway_ip_address = "44.192.120.87"
-  gateway_ip_address = aws_eip.sgw_eip[count.index].public_ip
+  gateway_ip_address = aws_eip.sgw_eip[count.index]
   gateway_name       = "test_gw"
   gateway_timezone   = "GMT"
   gateway_type       = "FILE_S3"
