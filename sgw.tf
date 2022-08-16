@@ -1,17 +1,15 @@
-/*
-resource "aws_security_group" "sg_allow_ssh" {
-  name        = "sg_allow_ssh"
-  description = "Allow SSH inbound traffic"
-  vpc_id = "vpc-0368dc1afbe9b7ffb"
-  #vpc_id      = module.vpc-us-east-1.vpc_id
+
+resource "aws_security_group" "sgw_allow" {
+  name        = "sgw_allow"
+  description = "Allow inbound traffic"
+  vpc_id = var.vpc_id
 
   ingress {
     description = "SSH from VPC"
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    #cidr_blocks = var.sg-ssh
+    cidr_blocks = var.swg_allow
     self = true
   }
 
@@ -19,8 +17,7 @@ resource "aws_security_group" "sg_allow_ssh" {
     from_port = 445
     to_port   = 445
     protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-    #cidr_blocks = var.sg-ssh
+    cidr_blocks = var.swg_allow
     description = "Remote desk login"
   }
 
@@ -28,8 +25,7 @@ resource "aws_security_group" "sg_allow_ssh" {
     from_port = 443
     to_port   = 443
     protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-     #cidr_blocks = var.sg-ssh
+    cidr_blocks = var.swg_allow
     description = "https"
   }
 
@@ -37,27 +33,15 @@ resource "aws_security_group" "sg_allow_ssh" {
     from_port = 80
     to_port   = 80
     protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-     #cidr_blocks = var.sg-ssh
+    cidr_blocks = var.swg_allow
     description = "http"
   }
 
-   ingress {
-    from_port = 2049
-    to_port   = 2049
-    protocol  = "tcp"
-    cidr_blocks = ["0.0.0.0/0"]
-     #cidr_blocks = var.sg-ssh
-    description = "adport"
-  }
-
-   ingress {
-    #description = "SSH from VPC"
+  ingress {
     from_port   = "-1"
     to_port     = "-1"
     protocol    = "icmp"
     cidr_blocks = ["0.0.0.0/0"]
-     #cidr_blocks = var.sg-ssh
   }
 
   egress {
@@ -68,18 +52,18 @@ resource "aws_security_group" "sg_allow_ssh" {
   }
 
   tags = {
-    Name = "sg_allow_ssh", created_by = "terraform"
+    Name = "sgw_allow", created_by = "terraform"
   }
 }
 
 output "sg_ssh_id" {
   description = "SG_SSH ID"
-  value = aws_security_group.sg_allow_ssh.id
+  value = aws_security_group.sgw_allow.id
 }
 
 resource "aws_instance" "gw_instance" {
-  ami                         = "ami-044238dc0ff5b8208"
-  instance_type               = "m5.xlarge"
+  ami                         = var.sgw_ami
+  instance_type               = var.sgw_mtype
   associate_public_ip_address = true
   subnet_id                   = "subnet-090c4e0411c0d81e1"
   vpc_security_group_ids = ["sg-0345ddfc7bf0a9b47"]
@@ -88,10 +72,14 @@ resource "aws_instance" "gw_instance" {
   }
 }
 
+output "gw_instance_id" {
+  value = aws_instance.gw_instance.id
+}
+
 resource "aws_ebs_volume" "sgw_ebs" {
   availability_zone = "us-east-1a"
-  size              = "200"
-  type              = "gp3"
+  size              = var.sgw_ebs
+  type              = var.ebs_type
   encrypted         = false
   tags = {
     created_by = "terraform"
@@ -105,8 +93,14 @@ resource "aws_volume_attachment" "sgw_attach" {
   force_detach = false
 }
 
+resource "aws_eip" "sgw_eip" {
+  instance = aws_instance.gw_instance.id
+  vpc      = true
+}
+
 resource "aws_storagegateway_gateway" "file_sgw" {
-  gateway_ip_address = "44.192.120.87"
+  #gateway_ip_address = "44.192.120.87"
+  gateway_ip_address = aws_eip.sgw_eip
   gateway_name       = "test_gw"
   gateway_timezone   = "GMT"
   gateway_type       = "FILE_S3"
@@ -121,4 +115,3 @@ resource "aws_storagegateway_cache" "gw_cache" {
   disk_id     = data.aws_storagegateway_local_disk.sgw_ebs.disk_id
   gateway_arn = aws_storagegateway_gateway.file_sgw.arn
 }
-*/
