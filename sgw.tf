@@ -15,8 +15,8 @@ resource "aws_security_group" "sg_allow_ssh" {
   }
 
    ingress {
-    from_port = 3389
-    to_port   = 3389
+    from_port = 445
+    to_port   = 445
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
     #cidr_blocks = var.sg-ssh
@@ -32,9 +32,18 @@ resource "aws_security_group" "sg_allow_ssh" {
     description = "https"
   }
 
+  ingress {
+    from_port = 80
+    to_port   = 80
+    protocol  = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+     #cidr_blocks = var.sg-ssh
+    description = "http"
+  }
+
    ingress {
-    from_port = 5671
-    to_port   = 5671
+    from_port = 2049
+    to_port   = 2049
     protocol  = "tcp"
     cidr_blocks = ["0.0.0.0/0"]
      #cidr_blocks = var.sg-ssh
@@ -93,4 +102,11 @@ resource "aws_volume_attachment" "sgw_attach" {
   volume_id    = aws_ebs_volume.sgw_ebs.id
   instance_id  = aws_instance.gw_instance.id
   force_detach = false
+}
+
+resource "aws_storagegateway_gateway" "file_sgw" {
+  gateway_ip_address = "44.192.120.87"
+  gateway_name       = "test_gw"
+  gateway_timezone   = "GMT"
+  gateway_type       = "FILE_S3"
 }
