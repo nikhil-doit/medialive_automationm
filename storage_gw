@@ -82,7 +82,7 @@ resource "aws_ebs_volume" "sgw_ebs" {
   type              = var.ebs_type
   encrypted         = false
   tags = {
-    created_by = "terraform"
+    created_by = "terraform", env = "stage"
   }
 }
 
@@ -93,16 +93,12 @@ resource "aws_volume_attachment" "sgw_attach" {
   force_detach = false
 }
 
-# count to create multiple eip if necessary and associated with respective instances
+
 resource "aws_eip" "sgw_eip" {
   instance = aws_instance.gw_instance.id
   vpc      = true
 }
-/*
-output "public_ip" {
-  value = aws_instance.gw_instance.public_ip
-}
-*/
+
 resource "aws_storagegateway_gateway" "file_sgw" {
   #gateway_ip_address = "44.192.120.87"
   gateway_ip_address = aws_eip.sgw_eip.public_ip
