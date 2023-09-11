@@ -2,9 +2,9 @@ variable "vpc_id" {
   default = "vpc-0368dc1afbe9b7ffb"
 }
 
-variable "sgw_ami" {
-  default = "ami-044238dc0ff5b8208"
-}
+#variable "sgw_ami" {
+ # default = "ami-044238dc0ff5b8208"origin/mai
+#}
 
 variable "sgw_mtype" {
   default = "m5.xlarge"
