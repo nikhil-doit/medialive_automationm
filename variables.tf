@@ -22,3 +22,7 @@ variable "swg_allow" {
   default = ["0.0.0.0/0", "1.2.3.4/32"]
 }
 
+# mediallive variables
+variable "mediachannel_role" {
+  default      = "medialive_channel_role"
+}
