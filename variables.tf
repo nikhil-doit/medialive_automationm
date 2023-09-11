@@ -18,9 +18,9 @@ variable "ebs_type" {
   default = "gp3"
 }
 
-variable "swg_allow" {
-  default = ["0.0.0.0/0", "1.2.3.4/32"]
-}
+#variable "swg_allow" {
+#  default = ["0.0.0.0/0", "1.2.3.4/32"]
+#}
 
 # mediallive variables
 variable "mediachannel_role" {
