@@ -13,7 +13,7 @@ resource "aws_medialive_input" "test_inputs" {
   count = 3
   name              = element(var.input_names, count.index )
   input_security_groups = [aws_medialive_input_security_group.my_medialive_sg.id]
-  type                  = "UDP_PUSH"
+  type                  = "RTMP_PUSH"
 
   tags = {
     name = "medialive_input"
@@ -22,5 +22,5 @@ resource "aws_medialive_input" "test_inputs" {
 }
 
 output "medialive_sg_name" {
-  value = aws_medialive_input_security_group.my_medialive_sg
+  value = aws_medialive_input_security_group.my_medialive_sg.id
 }
