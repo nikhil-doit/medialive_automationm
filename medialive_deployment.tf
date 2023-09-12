@@ -16,7 +16,7 @@ resource "aws_medialive_input" "test_inputs" {
   type                  = "UDP_PUSH"
 
   tags = {
-    name = "medialive_input_1"
+    name = "medialive_input"
     environment = "test"
   }
 }
