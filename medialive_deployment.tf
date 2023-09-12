@@ -10,7 +10,7 @@ resource "aws_medialive_input_security_group" "my_medialive_sg" {
 }
 
 resource "aws_medialive_input" "test_inputs" {
-  count = 2
+  count = 3
   name              = element(var.input_names, count.index )
   input_security_groups = [aws_medialive_input_security_group.my_medialive_sg.id]
   type                  = "UDP_PUSH"

@@ -11,14 +11,10 @@ variable "vpc_id" {
   default = "vpc-0368dc1afbe9b7ffb"
 }
 
-#variable "sgw_ami" {
- # default = "ami-044238dc0ff5b8208"origin/mai
-#}
-
 variable "input_names" {
   description = "Medialive input"
   type        = list
-  default     = ["test_input1","test_input_2"]
+  default     = ["test_input1","test_input_2","test_input_3"]
 }
 
 
