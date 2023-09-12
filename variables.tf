@@ -1,3 +1,12 @@
+variable "AWS_ACCESS_KEY_ID" {
+  description = "AWS Access Key ID"
+}
+
+variable "AWS_SECRET_ACCESS_KEY" {
+  description = "AWS Secret Access Key"
+}
+
+
 variable "vpc_id" {
   default = "vpc-0368dc1afbe9b7ffb"
 }

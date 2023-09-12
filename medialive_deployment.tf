@@ -21,3 +21,6 @@ resource "aws_medialive_input" "test_inputs" {
   }
 }
 
+output "medialive_sg_name" {
+  value = aws_medialive_input_security_group.my_medialive_sg
+}
