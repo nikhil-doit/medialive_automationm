@@ -34,4 +34,36 @@ variable "delete_timeout" {
   default     = "15m"
 }
 
+variable "ingress_cidr_blocks" {
+  description = "List of IPv4 CIDR ranges to use on all ingress rules"
+  type        = list(string)
+  default     = []
+}
 
+variable "ingress_ipv6_cidr_blocks" {
+  description = "List of IPv6 CIDR ranges to use on all ingress rules"
+  type        = list(string)
+  default     = []
+}
+
+variable "ingress_prefix_list_ids" {
+  description = "List of prefix list IDs (for allowing access to VPC endpoints) to use on all ingress rules"
+  type        = list(string)
+  default     = []
+}
+
+variable "sg_rule_description" {
+  description = "Description of security group"
+}
+
+variable "fromport" {
+  default = ""
+}
+
+variable "toport" {
+  default = ""
+}
+
+variable "protocol" {
+  default = ""
+}
