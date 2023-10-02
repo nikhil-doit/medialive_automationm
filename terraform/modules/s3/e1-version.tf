@@ -1,4 +1,6 @@
 # Terraform Block
+
+/*
 terraform {
   required_version = "~> 1.5" # >= 1.3 and < 2.xx
   required_providers {
@@ -13,6 +15,8 @@ terraform {
 provider "aws" {
   region = var.aws_region
 }
+
+*/
 
 /*
 Note-1:  AWS Credentials Profile (profile = "default")
