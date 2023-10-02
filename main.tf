@@ -28,6 +28,7 @@ module "s3" {
 variable "image_tag" {
   description = "The image id"
   type        = string
+  default = "latest"
 }
 /*
 module "sns" {
@@ -49,7 +50,8 @@ module "lambda" {
   function_description = "Handle new file events"
   architectures        = ["arm64"]
   image_name           = "q-sftp-connector"
-  image_tag            = var.image_tag
+  #image_tag            = var.image_tag
+  image_tag = var.image_tag
   memory_size          = 128
   timeout              = 3
   concurrent_execution = 10
