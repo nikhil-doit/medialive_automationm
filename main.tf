@@ -17,7 +17,7 @@ module "s3" {
   aws_region      = "eu-west-1"
   project_name    = "etl"
   environment     = "production"
-  bucket_name     = "etl.quantilia"
+  bucket_name     = "etl.quantilia1"
   aws_trusted_arn = [
     "arn:aws:iam::329205314638:user/rdeteix",
     "arn:aws:iam::329205314638:role/lambda-q-sftp-connector",
