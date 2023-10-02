@@ -11,6 +11,7 @@ terraform {
 }
 */
 
+/*
 module "s3" {
   source = "./terraform/modules/s3"
 
@@ -30,6 +31,9 @@ variable "image_tag" {
   type        = string
   default = "latest"
 }
+
+*/
+
 /*
 module "sns" {
   source            = "../modules/sns"
@@ -41,6 +45,7 @@ module "sns" {
 }
 */
 
+/*
 module "lambda" {
   source               = "./terraform/modules/lambda"
   aws_region           = "eu-west-1"
@@ -60,3 +65,4 @@ module "lambda" {
   slack-notification   = true
   #invoke-sns-arn       = [module.sns.sns_arn]
 }
+*/
