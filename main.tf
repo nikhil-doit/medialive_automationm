@@ -1,3 +1,4 @@
+/*
 terraform {
   backend "s3" {
     bucket = "terraform-backend-quantilia"
@@ -8,6 +9,7 @@ terraform {
     dynamodb_table = "terraform-lock"
   }
 }
+*/
 
 module "s3" {
   source = "./terraform/modules/s3"
