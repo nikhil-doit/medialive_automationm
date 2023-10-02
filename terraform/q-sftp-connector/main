@@ -1,3 +1,4 @@
+/*
 terraform {
   backend "s3" {
     bucket = "terraform-backend-quantilia"
@@ -8,6 +9,7 @@ terraform {
     dynamodb_table = "terraform-lock"
   }
 }
+*/
 
 variable "image_tag" {
   description = "The image id"
@@ -15,7 +17,7 @@ variable "image_tag" {
 }
 
 module "sns" {
-  source            = "../module/sns"
+  source            = "../modules/sns"
   project_name      = "q-sftp-connector"
   environment       = "production"
   aws_region        = "eu-west-1"
@@ -24,7 +26,7 @@ module "sns" {
 }
 
 module "lambda" {
-  source               = "../module/lambda"
+  source               = "../modules/lambda"
   aws_region           = "eu-west-1"
   project_name         = "q-sftp-connector"
   environment          = "production"
